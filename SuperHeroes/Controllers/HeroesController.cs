@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SuperHeroes.Data;
+using SuperHeroes.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,10 +41,13 @@ namespace SuperHeroes.Controllers
         // POST: HeroesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Hero hero)  //this was changed
         {
             try
             {
+                // TODO: Add insert logic here
+                _context.Heroes.Add(hero);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
