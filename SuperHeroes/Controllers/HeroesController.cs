@@ -60,16 +60,19 @@ namespace SuperHeroes.Controllers
         // GET: HeroesController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            var findId = _context.Heroes.Find(id);
+            return View(findId);
         }
 
         // POST: HeroesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(int id, Hero hero)
         {
             try
             {
+                _context.Heroes.Update(hero);
+                _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
